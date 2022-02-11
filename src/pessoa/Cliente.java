@@ -1,8 +1,8 @@
 package pessoa;
 
 public class Cliente {
-	String nome;
-	String cpf;
+	public String nome;
+	public String cpf;
 	int idade;
 	String dataNascimento;
 	String nomeDaMae;

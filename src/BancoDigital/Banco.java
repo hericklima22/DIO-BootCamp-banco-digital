@@ -8,17 +8,21 @@ public class Banco {
 		
 	}
 	
-	ArrayList<Cliente> clientes;
+	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	
 	public int criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae) {
 		if(!validaCpf(cpf)) return 0;
+		
 		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae);
+		System.out.println(novoCliente.nome);
 		clientes.add(novoCliente);
 		
 		return 1;
 	}
 	
 	private boolean validaCpf(String cpf) {
+
+		
 		String verificadores = "";
 		String finais = "";
 		finais = finais.concat(String.valueOf((cpf.charAt(cpf.length() - 2))) + String.valueOf((cpf.charAt(cpf.length() - 1))));
@@ -63,5 +67,20 @@ public class Banco {
 		verificadores = verificadores.concat(String.valueOf(resultado));
 		
 		return verificadores.equals(finais);
+	}
+
+	public double getSaldo(String busca, String tipo) {
+		
+		if(tipo == "cpf") {
+			
+		} else {
+			
+		}
+		
+		return 0;		
+	}
+	
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
 	}
 }	

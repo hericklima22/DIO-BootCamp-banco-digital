@@ -1,5 +1,7 @@
 package View;
 
+import BancoDigital.Banco;
+
 public class Main {
 
 	private static Menu menu;
@@ -9,47 +11,15 @@ public class Main {
 
 //	menu = new Menu();
 		
-		String cpf = "";
-		String verificadores = "";
-		String finais = "";
-		finais = finais.concat(String.valueOf((cpf.charAt(cpf.length() - 2))) + String.valueOf((cpf.charAt(cpf.length() - 1))));
+		Banco banco = new Banco();
+		banco.criaCliente("Herick","069.514.561-43", 22, "22/07/1999", "Rosangela");
+		banco.criaCliente("Wesley","463.948.630-84", 22, "22/07/1999", "Rosangela");
+		banco.criaCliente("Rosangela","986.796.310-51", 22, "22/07/1999", "Rosangela");
+		banco.criaCliente("Maria","119.706.540-74", 22, "22/07/1999", "Rosangela");
+		banco.criaCliente("Dennis","426.928.120-00", 22, "22/07/1999", "Rosangela");
+		banco.criaCliente("Nathan","901.512.410-82", 22, "22/07/1999", "Rosangela");
 		
-		if(cpf.contains(".")) {
-			cpf = cpf.replace(".", "");
-		}
-		
-		if(cpf.contains("-")) {
-			cpf = cpf.replace("-", "");
-		}
-		
-		int resultado = 0;
-		int multiplicador = 10;
-		String digito;
-		
-		for(int i = 0; i < cpf.length() - 2; i++) {
-			digito = String.valueOf(cpf.charAt(i));
-			resultado += Integer.parseInt(digito) * multiplicador--;	
-		}
-		
-		resultado *= 10;
-		resultado %= 11;
-		resultado = resultado == 10 ? 0 : resultado; 
-		verificadores = verificadores.concat(String.valueOf(resultado));
-		
-		multiplicador = 11;
-		resultado = 0;
-		
-		for(int i = 0; i < cpf.length() - 1; i++) {
-			digito = String.valueOf(cpf.charAt(i));
-			resultado += Integer.parseInt(digito) * multiplicador--;	
-		}
-		
-		resultado *= 10;
-		resultado %= 11;
-		resultado = resultado == 10 ? 0 : resultado;
-		verificadores = verificadores.concat(String.valueOf(resultado));
-		
-		System.out.println(verificadores.equals(finais));
+		System.out.println(banco.getClientes());
 	}
 
 }
