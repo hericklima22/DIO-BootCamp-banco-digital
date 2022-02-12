@@ -69,26 +69,45 @@ public class Banco {
 		return verificadores.equals(finais);
 	}
 
-	public double getSaldo(String busca, String tipo) {
-		
-		if(tipo == "cpf") {
+	private Cliente buscaCliente(String busca, int tipo) {
+		if(tipo == 1) {	// busca por CPF
 			for (Cliente cliente : clientes) {
 				if(cliente.cpf == busca) {
-					return cliente.getSaldo();
+					return cliente;
 				}
 			}
-		} else {
+		} else {	// busca por nome
 			for (Cliente cliente : clientes) {
 				if(cliente.nome == busca) {
-					return cliente.getSaldo();
+					return cliente;
 				}
 			}
 		}
+		return null;
+	}
+	
+	public double extrato(String busca, int tipo) {
+		if(buscaCliente(busca, tipo) == null) {
+			return -1;
+		}
 		
-		return -1;		
+		return buscaCliente(busca, tipo).getSaldo();		
 	}
 	
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
+	}
+
+	public boolean pix(String chavePix, double valor) {
+		if(buscaCliente(chavePix, 1) == null) {
+			//TODO lança uma exceçao
+			return false;
+		}
+		
+		Cliente cliente = buscaCliente(chavePix, 1);
+		
+		cliente.setSaldo(valor);
+		
+		return true;
 	}
 }	

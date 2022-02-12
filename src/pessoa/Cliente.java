@@ -18,6 +18,11 @@ public class Cliente {
 	}
 	
 	public double getSaldo() {
-		return this.saldo:
+		return this.saldo;
+	}
+	
+	public double setSaldo(double saldo) {
+		this.saldo += saldo;
+		return this.saldo;
 	}
 }
