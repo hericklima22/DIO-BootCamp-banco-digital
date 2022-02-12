@@ -72,12 +72,20 @@ public class Banco {
 	public double getSaldo(String busca, String tipo) {
 		
 		if(tipo == "cpf") {
-			
+			for (Cliente cliente : clientes) {
+				if(cliente.cpf == busca) {
+					return cliente.getSaldo();
+				}
+			}
 		} else {
-			
+			for (Cliente cliente : clientes) {
+				if(cliente.nome == busca) {
+					return cliente.getSaldo();
+				}
+			}
 		}
 		
-		return 0;		
+		return -1;		
 	}
 	
 	public ArrayList<Cliente> getClientes() {

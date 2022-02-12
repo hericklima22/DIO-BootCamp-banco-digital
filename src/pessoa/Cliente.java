@@ -16,4 +16,8 @@ public class Cliente {
 		this.nomeDaMae = nomeDaMae;
 		saldo = 0.0f;
 	}
+	
+	public double getSaldo() {
+		return this.saldo:
+	}
 }
