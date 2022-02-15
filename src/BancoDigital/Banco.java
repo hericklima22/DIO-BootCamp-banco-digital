@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import pessoa.*;
 
 public class Banco {
+	ArrayList<Cliente> clientes;
+
 	public Banco() {
-		
+		clientes = new ArrayList<Cliente>();
 	}
 	
-	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	
-	public int criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae) {
-		if(!validaCpf(cpf)) return 0;
+	
+	public boolean criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae) {
+		if(!validaCpf(cpf)) return false;
 		
 		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae);
-		System.out.println(novoCliente.nome);
 		clientes.add(novoCliente);
 		
-		return 1;
+		return true;
 	}
 	
 	private boolean validaCpf(String cpf) {
@@ -72,13 +73,13 @@ public class Banco {
 	private Cliente buscaCliente(String busca, int tipo) {
 		if(tipo == 1) {	// busca por CPF
 			for (Cliente cliente : clientes) {
-				if(cliente.cpf == busca) {
+				if(cliente.getCPF() == busca) {
 					return cliente;
 				}
 			}
 		} else {	// busca por nome
 			for (Cliente cliente : clientes) {
-				if(cliente.nome == busca) {
+				if(cliente.getNome() == busca) {
 					return cliente;
 				}
 			}
