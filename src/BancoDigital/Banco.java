@@ -6,21 +6,36 @@ import pessoa.*;
 public class Banco {
 	ArrayList<Cliente> clientes;
 
+	private String usuarioLogado;
+
 	public Banco() {
 		clientes = new ArrayList<Cliente>();
+		criaCliente("admin", "123.456.789-09", 99, "00", "maeAdmin", "admin");
+		usuarioLogado = null;
 	}
 	
-	
-	
-	public boolean criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae) {
+	public boolean criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae, String senha) {
 		if(!validaCpf(cpf)) return false;
 		
-		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae);
+		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae, senha);
 		clientes.add(novoCliente);
 		
 		return true;
 	}
 	
+	public boolean deletaCliente(String nome, String cpf, String senha) {
+		if (!validaCpf(cpf)) return false;
+
+		Cliente clienteASerDeletado = buscaCliente(nome, 2);
+
+		if (clientes.isEmpty()) return false;
+		if (clienteASerDeletado == null) return false;
+
+		clientes.remove(clienteASerDeletado);
+		
+		return true;
+	}
+
 	private boolean validaCpf(String cpf) {
 
 		
@@ -70,7 +85,7 @@ public class Banco {
 		return verificadores.equals(finais);
 	}
 
-	private Cliente buscaCliente(String busca, int tipo) {
+	public Cliente buscaCliente(String busca, int tipo) {
 		if(tipo == 1) {	// busca por CPF
 			for (Cliente cliente : clientes) {
 				if(cliente.getCPF() == busca) {
@@ -86,7 +101,7 @@ public class Banco {
 		}
 		return null;
 	}
-	
+
 	public double extrato(String busca, int tipo) {
 		if(buscaCliente(busca, tipo) == null) {
 			return -1;
@@ -111,4 +126,18 @@ public class Banco {
 		
 		return true;
 	}
+
+	public boolean login(String usuario, String senha) {
+		if (buscaCliente(usuario, 2) == null) return false;
+		if (buscaCliente(usuario, 2).getSenha() != senha) return false;
+
+		usuarioLogado = buscaCliente(usuario, 2).getNome();
+		
+		return true;
+	}
+
+	public void logoff() {
+		usuarioLogado = null;
+	}
+
 }	

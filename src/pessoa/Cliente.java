@@ -47,4 +47,12 @@ public class Cliente {
 	public String getNomeDaMae() {
 		return this.nomeDaMae;
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 }
