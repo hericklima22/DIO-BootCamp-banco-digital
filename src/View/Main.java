@@ -19,7 +19,6 @@ public class Main {
 		banco.criaCliente("Dennis","426.928.120-00", 22, "22/07/1999", "Rosangela", "1234");
 		banco.criaCliente("Nathan","901.512.410-82", 22, "22/07/1999", "Rosangela", "1234");
 
-		
 		System.out.println(banco.buscaCliente("admin", 2).getNome());
 
 		//implemetnar medodos dos clientes, login, exceçoes e interface grafica

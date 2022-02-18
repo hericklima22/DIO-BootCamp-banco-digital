@@ -8,6 +8,7 @@ public class Cliente {
 	private final String nomeDaMae;
 	private double saldo;
 	private String senha;
+	private int permissoes;
 	
 	public Cliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae, String senha) {
 		this.nome = nome;
@@ -54,5 +55,13 @@ public class Cliente {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public int getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(int permissoes) {
+		this.permissoes = permissoes;
 	}
 }

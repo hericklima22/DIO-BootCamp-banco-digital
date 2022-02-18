@@ -6,15 +6,18 @@ import pessoa.*;
 public class Banco {
 	ArrayList<Cliente> clientes;
 
-	private String usuarioLogado;
+	private Cliente usuarioLogado;
 
 	public Banco() {
 		clientes = new ArrayList<Cliente>();
 		criaCliente("admin", "123.456.789-09", 99, "00", "maeAdmin", "admin");
+		buscaCliente("admin", 2).setPermissoes(3);
 		usuarioLogado = null;
 	}
 	
 	public boolean criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae, String senha) {
+		if (usuarioLogado.getPermissoes() < 2) return false;
+
 		if(!validaCpf(cpf)) return false;
 		
 		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae, senha);
@@ -24,6 +27,8 @@ public class Banco {
 	}
 	
 	public boolean deletaCliente(String nome, String cpf, String senha) {
+		if (usuarioLogado.getPermissoes() < 3) return false;
+
 		if (!validaCpf(cpf)) return false;
 
 		Cliente clienteASerDeletado = buscaCliente(nome, 2);
@@ -116,12 +121,17 @@ public class Banco {
 
 	public boolean pix(String chavePix, double valor) {
 		if(buscaCliente(chavePix, 1) == null) {
-			//TODO lança uma exceçao
 			return false;
 		}
 		
 		Cliente cliente = buscaCliente(chavePix, 1);
 		
+		double valorNovo = usuarioLogado.getSaldo() - valor;
+
+		usuarioLogado.setSaldo(valorNovo);
+		
+		valor = cliente.getSaldo() + valor;
+
 		cliente.setSaldo(valor);
 		
 		return true;
@@ -131,7 +141,7 @@ public class Banco {
 		if (buscaCliente(usuario, 2) == null) return false;
 		if (buscaCliente(usuario, 2).getSenha() != senha) return false;
 
-		usuarioLogado = buscaCliente(usuario, 2).getNome();
+		usuarioLogado = buscaCliente(usuario, 2);
 		
 		return true;
 	}
