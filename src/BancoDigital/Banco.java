@@ -12,12 +12,10 @@ public class Banco {
 		clientes = new ArrayList<Cliente>();
 		criaCliente("admin", "123.456.789-09", 99, "00", "maeAdmin", "admin");
 		buscaCliente("admin", 2).setPermissoes(3);
-		usuarioLogado = null;
+		usuarioLogado = buscaCliente("admin", 2);
 	}
 	
 	public boolean criaCliente(String nome, String cpf, int idade, String dataNascimento, String nomeDaMae, String senha) {
-		if (usuarioLogado.getPermissoes() < 2) return false;
-
 		if(!validaCpf(cpf)) return false;
 		
 		Cliente novoCliente = new Cliente(nome, cpf, idade, dataNascimento, nomeDaMae, senha);
@@ -41,7 +39,7 @@ public class Banco {
 		return true;
 	}
 
-	private boolean validaCpf(String cpf) {
+	public boolean validaCpf(String cpf) {
 
 		
 		String verificadores = "";
